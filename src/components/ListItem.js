@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 
-const ListItem = ({item, uniqueKey}) => {
+const ListItem = ({item, uniqueKey, onPressItem}) => {
   return (
     <View style={styles.item_container} key={uniqueKey}>
       <View style={{flexDirection: 'row', width: '60%'}}>
@@ -14,7 +14,9 @@ const ListItem = ({item, uniqueKey}) => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.price_button}>
+      <TouchableOpacity
+        style={styles.price_button}
+        onPress={() => onPressItem(item)}>
         <Text
           style={{color: '#fff', fontWeight: 'bold', margin: 0, padding: 0}}>
           {item?.price ? item.price : 'Play'}

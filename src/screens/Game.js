@@ -18,7 +18,7 @@ import BannerSlider from './../components/BannerSlider';
 import ListItem from './../components/ListItem';
 import CustomSwitch from './../components/CustomSwitch';
 
-const Game = () => {
+const Game = ({navigation}) => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const renderBanner = ({item, index}) => {
@@ -27,6 +27,10 @@ const Game = () => {
 
   const onTabSelection = (value) => {
     setSelectedTab(value);
+  };
+
+  const onPressItem = (item) => {
+    navigation.navigate('GameDetails', item);
   };
 
   return (
@@ -78,12 +82,12 @@ const Game = () => {
           />
           {
             selectedTab === 0 && freeGames.reverse().map((item, index) =>(
-              <ListItem item={item} uniqueKey={`${index}free`}/>
+              <ListItem item={item} uniqueKey={`${index}free`} onPressItem={onPressItem}/>
             ))
           }
           {
             selectedTab === 1 && freeGames.reverse().map((item, index) =>(
-              <ListItem item={item} uniqueKey={`${index}paid`}/>
+              <ListItem item={item} uniqueKey={`${index}paid`} onPressItem={onPressItem}/>
             ))
           }
         </View>

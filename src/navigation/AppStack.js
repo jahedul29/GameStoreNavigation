@@ -11,6 +11,8 @@ import Moments from './../screens/Moments';
 import Settings from './../screens/Settings';
 import CustomDrawer from '../components/CustomDrawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import GameStack from './GameStack';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -53,14 +55,15 @@ export default function AppStack() {
       />
       <Drawer.Screen
         name="Game"
-        component={Game}
-        options={{
+        component={GameStack}
+        options={({route}) => ({
+          headerShown: getHeaderVisibility(route),
           title: 'Games',
           ...commonHeaderOptions,
           drawerIcon: ({focused, color, size}) => (
             <Ionicons name="game-controller-outline" size={16} color={color} />
           ),
-        }}
+        })}
       />
       <Drawer.Screen
         name="Profile"
@@ -109,3 +112,12 @@ export default function AppStack() {
     </Drawer.Navigator>
   );
 }
+
+const getHeaderVisibility = route => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
+  if (routeName === 'GameDetails') {
+    return false;
+  } else {
+    return true;
+  }
+};
